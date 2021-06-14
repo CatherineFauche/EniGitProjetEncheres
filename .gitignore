@@ -1,3 +1,9 @@
+#Interdire les répertoire et configuration d'Eclipse 
+/.settings
+/build
+.classpath
+.project
+
 # Compiled class file
 *.class
 
