@@ -1,6 +1,8 @@
 #Interdire les répertoire et configuration d'Eclipse 
 /.settings
 /build
+/WebContent/META-INF
+/WebContent/WEB-INF/lib
 .classpath
 .project
 
