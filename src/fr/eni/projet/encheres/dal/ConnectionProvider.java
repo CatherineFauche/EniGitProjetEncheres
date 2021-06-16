@@ -8,7 +8,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class ConnectionProvider {
+abstract class ConnectionProvider {
 	
 	private static DataSource dataSource;
 	
@@ -20,7 +20,7 @@ public class ConnectionProvider {
 		} catch (NamingException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Cannot Access The DataBase");
-		}System.out.println("connexion établie");
+		}
 	}
 	
 	public static Connection getConnection()throws SQLException{
