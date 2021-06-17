@@ -1,9 +1,9 @@
 package fr.eni.projet.encheres.bll;
 
 
-import fr.eni.projet.encheres.BusinessException;
+
 import fr.eni.projet.encheres.bo.Utilisateur;
-import fr.eni.projet.encheres.dal.CodesResultatDAL;
+
 import fr.eni.projet.encheres.dal.DAOFactory;
 import fr.eni.projet.encheres.dal.UtilisateurDAO;
 
@@ -32,7 +32,7 @@ public class UtilisateurManager {
 		
 	}
 	
-	public Utilisateur getUtilisateur(int id) throws BusinessException {
+/*	public Utilisateur getUtilisateur(int id) throws BusinessException {
 		try {
 			return utilisateurDAO.selectById(id);
 		} catch (BusinessException e) {
@@ -41,5 +41,5 @@ public class UtilisateurManager {
 			businessException.ajouterErreur(CodesResultatDAL.LECTURE_IDENTIFIANT_ERREUR);
 			throw businessException;
 		}
-	}
+	} */
 }

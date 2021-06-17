@@ -7,9 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import fr.eni.projet.encheres.BusinessException;
+
 import fr.eni.projet.encheres.bo.Utilisateur;
-import fr.eni.projet.encheres.dal.CodesResultatDAL;
+
 import fr.eni.projet.encheres.dal.ConnectionProvider;
 import fr.eni.projet.encheres.dal.UtilisateurDAO;
 
@@ -71,8 +71,14 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		
 		return utilisateur;
 	}
+
+	@Override
+	public Utilisateur selectById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
-	public Utilisateur selectById(int id) throws BusinessException {
+/*	public Utilisateur selectById(int id) throws BusinessException {
 		Utilisateur utilisateur = new Utilisateur();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
@@ -91,5 +97,5 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		}
 		
 		return utilisateur;
-	}
+	} */
 }
