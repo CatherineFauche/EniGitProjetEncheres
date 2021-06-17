@@ -12,9 +12,10 @@ public class Utilisateur {
 	private String cp;
 	private String ville;
 	private String motDePasse;
+	private int credit;
+	private byte administrateur;
 	
-	
-	
+
 	public Utilisateur() {
 		
 	}
@@ -48,6 +49,24 @@ public class Utilisateur {
 		this.ville = ville;
 		this.motDePasse = motDePasse;
 		
+	}
+	
+
+	public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue,
+			String cp, String ville, String motDePasse, int credit, byte administrateur) {
+		super();
+		this.id = id;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.cp = cp;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		this.credit = credit;
+		this.administrateur = administrateur;
 	}
 
 	public String getPseudo() {
@@ -110,6 +129,22 @@ public class Utilisateur {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public int getCredit() {
+		return credit;
+	}
+
+	public void setCredit(int credit) {
+		this.credit = credit;
+	}
+
+	public byte getAdministrateur() {
+		return administrateur;
+	}
+
+	public void setAdministrateur(byte administrateur) {
+		this.administrateur = administrateur;
 	}
 
 	@Override
@@ -193,7 +228,9 @@ public class Utilisateur {
 	public String toString() {
 		return "Utilisateur [id=" + id + ", pseudo=" + pseudo + ", nom=" + nom + ", prenom=" + prenom + ", email="
 				+ email + ", telephone=" + telephone + ", rue=" + rue + ", cp=" + cp + ", ville=" + ville
-				+ ", motDePasse=" + motDePasse +  "]";
-	} 
+				+ ", motDePasse=" + motDePasse + ", credit=" + credit + ", administrateur=" + administrateur + "]";
+	}
+
+	
 
 }

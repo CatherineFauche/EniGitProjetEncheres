@@ -12,44 +12,47 @@
 	</head>
 	
 	<body>
-	<header>
-		<nav class="navbar navbar-expand-md navbar-light bg-dark">
-			<a class="navbar-brand text-white" href="https://www.eni-ecole.fr/">
-		    	<h3>ENI-Encheres</h3>
-		    </a>
-		    <button type="button" class="navbar-toggler bg-light" data-toggle="collapse" data-target="#nav">
-		    	<span class="navbar-toggler-icon"></span>
-		    </button>
-		    <div class="collapse navbar-collapse justify-content-between" id="nav">
-				<ul class="navbar-nav">
-					<c:choose>
-						<c:when test="${!empty sessionScope.identifiant && !empty sessionScope.password}">
-							<li class="nav-item">
-						    	<a class="nav-link text-light px-3" href="#">Enchères</a>
-						    </li>
-						    <li class="nav-item">
-						    	<a class="nav-link text-light px-3" href="#">Vendre un article</a>
-						    </li>
-						    <li class="nav-item">
-						    	<a class="nav-link text-light px-3" href="#">Mon profil</a>
-						    </li>
-						    <li class="nav-item">
-						    	<a class="nav-link text-light px-3" href="#">Déconnection</a>
-						    </li>
-						</c:when>
-						<c:otherwise>
-							<li class="nav-item">
-							 	<a class="nav-link text-light px-3" href="#">S'inscrire - Connection</a>
-							</li>
-						</c:otherwise>
-					</c:choose>
-				</ul>
-			</div>
-		</nav>
-	</header> 
+		<header>
+			<nav class="navbar navbar-expand-md navbar-light bg-dark">
+				<a class="navbar-brand text-white" href="https://www.eni-ecole.fr/">
+			    	<h3>ENI-Encheres</h3>
+			    </a>
+			    <button type="button" class="navbar-toggler bg-light" data-toggle="collapse" data-target="#nav">
+			    	<span class="navbar-toggler-icon"></span>
+			    </button>
+			    <div class="collapse navbar-collapse justify-content-between" id="nav">
+					<ul class="navbar-nav">
+						<c:choose>
+							<c:when test="${!empty sessionScope.pseudo}">
+								<li class="nav-item">
+							    	<a class="nav-link text-light px-3" href="#">Enchères</a>
+							    </li>
+							    <li class="nav-item">
+							    	<a class="nav-link text-light px-3" href="#">Vendre un article</a>
+							    </li>
+							    <li class="nav-item">
+							    	<a class="nav-link text-light px-3" href="#">Mon profil</a>
+							    </li>
+							    <li class="nav-item">
+							    	<a class="nav-link text-light px-3" href="Deconnexion">Déconnection</a>
+							    </li>
+							</c:when>
+							<c:otherwise>
+								<li class="nav-item">
+								 	<a class="nav-link text-light px-3" href="#">S'inscrire - Connection</a>
+								</li>
+							</c:otherwise>
+						</c:choose>
+					</ul>
+				</div>
+			</nav>
+		</header> 
 	
 		<h2 class="text-center">Liste des enchères</h2>
 		
+		<c:if test="${ !empty sessionScope.pseudo}">
+			<p> Bonjour ${sessionScope.pseudo}, que les ventes soient bonnes !! </p>
+		</c:if>
 		
 		<div class="col-12">
 			<!-- message erreur -->
@@ -65,7 +68,7 @@
 				</div>
 			</c:if>
 			
-			<div class="container">
+			<div class="container bg-light" id="recherche-accueil">
 				<form action="#">
 					<div class="row ">
 						<div class="col-9">
@@ -88,33 +91,47 @@
 									</select>
 								</div>
 						    </div>
-						    <c:if test="${!empty sessionScope.identifiant && !empty sessionScope.password}">
+						    <c:if test="${!empty sessionScope.pseudo}">
 								<div class="row">
-						   			<div class="col-6">
-						   				<input type="radio" name="choice" value="Achat" id="achat" required="required">
-										<label for="achat">Achat</label>
-										<input type="checkbox" name="choiceBis" value="eouverte" id="eouverte">
-										<label for="eouverte">Enchères ouvertes</label>
-										<input type="checkbox" name="choiceBis" value="eactuelle" id="eactuelle">
-										<label for="eactuelle">Mes enchères en cours</label>
-										<input type="checkbox" name="choiceBis" value="eremportee" id="eremportee">
-										<label for="eremportee">Mes enchères remportées</label>
-						   			</div>
-						   			<div class="col-6">
-						   				<input type="radio" name="choice" value="Vente" id="vente">
-										<label for="vente">Mes Vente</label>
-										<input type="checkbox" name="choiceBis" value="vactuelle" id="vactuelle">
-										<label for="vactuelle">Mes ventes en cours</label>
-										<input type="checkbox" name="choiceBis" value="vfuture" id="vfuture">
-										<label for="vfuture">Ventes non débutées</label>
-										<input type="checkbox" name="choiceBis" value="vterminee" id="vterminee">
-										<label for="vterminee">Ventes terminées</label>
+									<div class="btn-group">
+							   			<div class="col-4">
+							   				<input type="radio" name="choice" value="Achat" id="achat" required="required">
+											<label for="achat">Achat</label>
+											<div class="row">
+												<input type="checkbox" name="choiceBis" value="eouverte" id="eouverte">
+												<label for="eouverte">Enchères ouvertes</label>
+											</div>
+											<div class="row">
+												<input type="checkbox" name="choiceBis" value="eactuelle" id="eactuelle">
+												<label for="eactuelle">Mes enchères en cours</label>
+											</div>
+											<div class="row">
+												<input type="checkbox" name="choiceBis" value="eremportee" id="eremportee">
+												<label for="eremportee">Mes enchères remportées</label>
+											</div>
+							   			</div>
+							   			<div class="col-4">
+							   				<input type="radio" name="choice" value="Vente" id="vente">
+											<label for="vente">Mes Vente</label>
+											<div class="row">
+												<input type="checkbox" name="choiceBis" value="vactuelle" id="vactuelle">
+												<label for="vactuelle">Mes ventes en cours</label>
+											</div>
+											<div class="row">
+												<input type="checkbox" name="choiceBis" value="vfuture" id="vfuture">
+												<label for="vfuture">Ventes non débutées</label>
+											</div>
+											<div class="row">
+												<input type="checkbox" name="choiceBis" value="vterminee" id="vterminee">
+												<label for="vterminee">Ventes terminées</label>
+											</div>
+							   			</div>
 						   			</div>
 						    	</div>
 							</c:if>						    
 						</div>
 						<div class="col-3">
-							<a href="#" class="badge" title="Filtrer">
+							<a href="#" class="badge badge-padding-center" title="Filtrer">
 								<i class="fas fa-search fa-3x text-muted"></i>
 							</a>
 						</div>
@@ -122,9 +139,11 @@
 				</form>
 			</div>
 			
+			<div class="row py-3"></div>
+			
 			<div class="row">
 				<c:choose>
-					<c:when test="${!empty sessionScope.identifiant && !empty sessionScope.password}">
+					<c:when test="${!empty sessionScope.pseudo}">
 						<p class="text-center">Si ce message s'affiche c'est que la session est ouverte.</p>
 					</c:when>
 					<c:otherwise>
@@ -132,18 +151,15 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-			
-			
-		    
 		    
 		    <div class="row py-3"></div>			
 		</div>
-	<footer class="py-3 bg-dark">
-      	<div class="container">
-       		<p class="m-0 text-center text-white">Copyright &copy; ENI - Groupe C 2021</p>
-    	</div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+		<footer class="py-3 bg-dark">
+	      	<div class="container">
+	       		<p class="m-0 text-center text-white">Copyright &copy; ENI - Groupe C 2021</p>
+	    	</div>
+	    </footer>
+	    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 	</body>
 </html>

@@ -19,7 +19,7 @@ public class Inscription extends HttpServlet {
        
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/Inscription.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/JSP/Inscription.jsp").forward(request, response);
 		
 	
 	}
@@ -45,8 +45,8 @@ public class Inscription extends HttpServlet {
 			 ville,  motDePasse);
 		
 		request.setAttribute("utilisateur", utilisateur);
-
-		request.getRequestDispatcher("/WEB-INF/Accueil.jsp").forward(request, response);
+		
+		response.sendRedirect("/encheres");
 		
 		
 		

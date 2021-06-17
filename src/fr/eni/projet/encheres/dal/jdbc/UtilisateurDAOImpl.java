@@ -7,12 +7,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import fr.eni.projet.encheres.BusinessException;
 import fr.eni.projet.encheres.bo.Utilisateur;
+import fr.eni.projet.encheres.dal.CodesResultatDAL;
 import fr.eni.projet.encheres.dal.ConnectionProvider;
 import fr.eni.projet.encheres.dal.UtilisateurDAO;
 
 public class UtilisateurDAOImpl implements UtilisateurDAO {
 	Utilisateur utilisateur;
+	
+	private static final String SELECT_BY_ID =	"SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE no_utilisateur=?";
 
 	@Override
 	public void creerUtilisateur(Utilisateur utilisateur) {
@@ -43,9 +47,49 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			
 			
 			
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 			
-}
+	}
+	
+	public Utilisateur mapping (ResultSet rs) throws SQLException {
+		Utilisateur utilisateur = null;
+		int idU = rs.getInt("no_utilisateur");
+		String pseudo = rs.getString("pseudo");
+		String nom = rs.getString("pseudo");
+		String prenom = rs.getString("pseudo");
+		String email = rs.getString("pseudo");
+		String telephone = rs.getString("pseudo");
+		String rue = rs.getString("pseudo");
+		String cp = rs.getString("pseudo");
+		String ville = rs.getString("pseudo");
+		String mdp = rs.getString("pseudo");
+		int credit = rs.getInt("credit");
+		byte admin = rs.getByte("administrateur");
+		
+		
+		return utilisateur;
+	}
+	
+	public Utilisateur selectById(int id) throws BusinessException {
+		Utilisateur utilisateur = new Utilisateur();
+		
+		try(Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				utilisateur = mapping(rs);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.LECTURE_IDENTIFIANT_ERREUR);
+			throw businessException;
+		}
+		
+		return utilisateur;
+	}
 }
