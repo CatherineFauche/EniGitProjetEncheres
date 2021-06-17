@@ -2,6 +2,7 @@ package fr.eni.projet.encheres.dal.jdbc;
 
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,22 +15,37 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	Utilisateur utilisateur;
 
 	@Override
-	public Utilisateur creerUtilisateur(String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String cp, String ville, String motDePasse, String confirmation) {
+	public void creerUtilisateur(Utilisateur utilisateur) {
+		
+		
 		try (Connection cnx = ConnectionProvider.getConnection();) {
 			
 		
-			Statement stmt = cnx.createStatement();
-			ResultSet rs = stmt.executeQuery("INSERT INTO utilisateur(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe)VALUES(?,?,?,?,?,?,?,?,?),Statement.RETURN_GENERATED_KEYS");
 			
-			while (rs.next()) {
-				
+			PreparedStatement pstmt = cnx.prepareStatement("INSERT INTO utilisateurs(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe)VALUES(?,?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, utilisateur.getPseudo());
+			pstmt.setString(2, utilisateur.getNom());
+			pstmt.setString(3, utilisateur.getPrenom());
+			pstmt.setString(4, utilisateur.getEmail());
+			pstmt.setString(5, utilisateur.getTelephone());
+			pstmt.setString(6, utilisateur.getRue());
+			pstmt.setString(7, utilisateur.getCp());
+			pstmt.setString(8, utilisateur.getVille());
+			pstmt.setString(9, utilisateur.getMotDePasse());
 			
+			pstmt.executeUpdate();
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if(rs.next())
+			{
+				utilisateur.setId(rs.getInt(1));
 			}
+			
+			
+			
 			
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
-		return utilisateur;	
+			
 }
 }

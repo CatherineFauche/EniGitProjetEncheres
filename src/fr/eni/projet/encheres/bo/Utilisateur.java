@@ -12,7 +12,7 @@ public class Utilisateur {
 	private String cp;
 	private String ville;
 	private String motDePasse;
-	private String confirmation;
+	
 	
 	
 	public Utilisateur() {
@@ -20,7 +20,7 @@ public class Utilisateur {
 	}
 	
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String cp,
-			String ville, String motDePasse, String confirmation) {
+			String ville, String motDePasse) {
 		super();
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -31,11 +31,11 @@ public class Utilisateur {
 		this.cp = cp;
 		this.ville = ville;
 		this.motDePasse = motDePasse;
-		this.confirmation = confirmation;
+		
 	}
 	
 	public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String cp, String ville, String motDePasse, String confirmation) {
+			String cp, String ville, String motDePasse) {
 		super();
 		this.id = id;
 		this.pseudo = pseudo;
@@ -47,7 +47,7 @@ public class Utilisateur {
 		this.cp = cp;
 		this.ville = ville;
 		this.motDePasse = motDePasse;
-		this.confirmation = confirmation;
+		
 	}
 
 	public String getPseudo() {
@@ -104,21 +104,18 @@ public class Utilisateur {
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
 	}
-	public String getConfirmation() {
-		return confirmation;
-	}
-	public void setConfirmation(String confirmation) {
-		this.confirmation = confirmation;
-	}
+
 	public int getId() {
 		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((confirmation == null) ? 0 : confirmation.hashCode());
 		result = prime * result + ((cp == null) ? 0 : cp.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + id;
@@ -141,11 +138,7 @@ public class Utilisateur {
 		if (getClass() != obj.getClass())
 			return false;
 		Utilisateur other = (Utilisateur) obj;
-		if (confirmation == null) {
-			if (other.confirmation != null)
-				return false;
-		} else if (!confirmation.equals(other.confirmation))
-			return false;
+		
 		if (cp == null) {
 			if (other.cp != null)
 				return false;
@@ -200,7 +193,7 @@ public class Utilisateur {
 	public String toString() {
 		return "Utilisateur [id=" + id + ", pseudo=" + pseudo + ", nom=" + nom + ", prenom=" + prenom + ", email="
 				+ email + ", telephone=" + telephone + ", rue=" + rue + ", cp=" + cp + ", ville=" + ville
-				+ ", motDePasse=" + motDePasse + ", confirmation=" + confirmation + "]";
+				+ ", motDePasse=" + motDePasse +  "]";
 	} 
 
 }

@@ -1,11 +1,16 @@
 package fr.eni.projet.encheres.servlet;
 
 import java.io.IOException;
+
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import fr.eni.projet.encheres.bll.UtilisateurManager;
+import fr.eni.projet.encheres.bo.Utilisateur;
 
 
 @WebServlet("/inscription")
@@ -34,12 +39,17 @@ public class Inscription extends HttpServlet {
 		String cp = request.getParameter("cp");
 		String ville = request.getParameter("ville");
 		String motDePasse = request.getParameter("motdepasse");
-		String confirmation = request.getParameter("confirmation");
+		
+		UtilisateurManager utilisateurmanager = new UtilisateurManager();
+		Utilisateur utilisateur = utilisateurmanager.creer(pseudo,nom, prenom,  email,  telephone,  rue, cp,
+			 ville,  motDePasse);
+		
+		request.setAttribute("utilisateur", utilisateur);
 
+		request.getRequestDispatcher("/WEB-INF/Accueil.jsp").forward(request, response);
 		
 		
 		
-		doGet(request, response);
 	}
 
 }
