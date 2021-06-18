@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.projet.encheres.bll.UtilisateurManager;
 import fr.eni.projet.encheres.bo.Utilisateur;
@@ -46,7 +47,12 @@ public class Inscription extends HttpServlet {
 		
 		request.setAttribute("utilisateur", utilisateur);
 		
-		response.sendRedirect("/encheres");
+		HttpSession session = request.getSession();
+		
+		session.setAttribute("utilisateur",utilisateur);
+		
+
+		request.getRequestDispatcher("/WEB-INF/JSP/encheres.jsp").forward(request, response);
 		
 		
 		

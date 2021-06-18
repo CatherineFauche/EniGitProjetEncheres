@@ -51,11 +51,16 @@
                 <label for="confirmation">Confirmation du mot de passe <span class="requis">*</span></label>
                 <input type="password" id="confirmation" name="confirmation" value="" size="20" maxlength="20" />
                 <br />
+                
+                <label for="credit">Crédit</label>
+                
+                <br />
 
                 
 
-                <input type="submit" value="Créer" class="sansLabel" />
-                <button onclick="window.location.href = 'encheres';">Retour</button>
+                <input type="submit" value="Enregistrer" class="sansLabel" />
+                <input type="submit" value="Supprimer mon Compte" class="sansLabel" />
+                
                 
                 
                 <br />
