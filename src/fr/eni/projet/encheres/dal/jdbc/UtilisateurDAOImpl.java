@@ -21,9 +21,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		
 		try (Connection cnx = ConnectionProvider.getConnection();PreparedStatement pstmt = cnx.prepareStatement("INSERT INTO utilisateurs(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe)VALUES(?,?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);) {
 			
-		
-			
-			
 			pstmt.setString(1, utilisateur.getPseudo());
 			pstmt.setString(2, utilisateur.getNom());
 			pstmt.setString(3, utilisateur.getPrenom());
@@ -76,10 +73,6 @@ public Utilisateur afficherProfil(int id) {
 				
 			}
 		return utilisateur;
-		
-		
-		
-
 	}
 
 	@Override
@@ -108,10 +101,10 @@ public Utilisateur afficherProfil(int id) {
 
 
 @Override
-public void supprimerProfil(int id) {
+public void supprimerProfil(Utilisateur utilisateur) {
 	
 	try (Connection cnx = ConnectionProvider.getConnection();PreparedStatement pstmt = cnx.prepareStatement("DELETE FROM utilisateurs WHERE no_utilisateur=?");) {
-		pstmt.setInt(1, id);
+		pstmt.setString(1, "utilisateur");
 		pstmt.executeUpdate();
 	} catch (SQLException e) {
 		e.printStackTrace();

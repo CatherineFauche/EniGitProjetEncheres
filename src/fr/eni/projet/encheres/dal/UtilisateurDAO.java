@@ -10,6 +10,6 @@ public interface UtilisateurDAO {
 		
 		Utilisateur modifierProfil(Utilisateur utilisateur);
 		
-		void supprimerProfil(int id);
+		void supprimerProfil(Utilisateur utilisateur);
 
 }

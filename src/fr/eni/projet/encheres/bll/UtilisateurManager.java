@@ -1,17 +1,13 @@
 package fr.eni.projet.encheres.bll;
 
 
-
 import fr.eni.projet.encheres.bo.Utilisateur;
-
 import fr.eni.projet.encheres.dal.DAOFactory;
 import fr.eni.projet.encheres.dal.UtilisateurDAO;
 
 public class UtilisateurManager {
 	
-	//private static UtilisateurManager instance;
 	
-	//Utilisateur utilisateur = new Utilisateur();
 	
 	private UtilisateurDAO utilisateurDAO;
 	
@@ -25,21 +21,14 @@ public class UtilisateurManager {
 		// Les lister et renvoyer vers la couche présentation
 		
 		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville, motDePasse);
-		//TODO appeler la dal
 		this.utilisateurDAO.creerUtilisateur(utilisateur);
 		
 		return utilisateur;
-		
 	}
 	
-/*	public Utilisateur getUtilisateur(int id) throws BusinessException {
-		try {
-			return utilisateurDAO.selectById(id);
-		} catch (BusinessException e) {
-			e.printStackTrace();
-			BusinessException businessException = new BusinessException();
-			businessException.ajouterErreur(CodesResultatDAL.LECTURE_IDENTIFIANT_ERREUR);
-			throw businessException;
-		}
-	} */
+	public void supprimerProfil() {
+		
+		Utilisateur utilisateur = new Utilisateur();
+		this.utilisateurDAO.supprimerProfil(utilisateur);
+	}
 }

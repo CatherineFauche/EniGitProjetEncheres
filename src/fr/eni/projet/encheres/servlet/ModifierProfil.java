@@ -8,22 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/MonProfil")
-public class MonProfil extends HttpServlet {
+@WebServlet("/ModifierProfil")
+public class ModifierProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
- 
-  
+   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//Récupérer l'utilsateur par la session.
-		
-	//	request.setAttribute("utilisateur", utilisateur);
-		
-		
-		request.getRequestDispatcher("/WEB-INF/JSP/MonProfil.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/JSP/ModifierProfil.jsp").forward(request, response);
 	}
 
-	
-	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+
 }
