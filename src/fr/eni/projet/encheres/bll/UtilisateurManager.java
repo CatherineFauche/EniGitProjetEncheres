@@ -1,6 +1,7 @@
 package fr.eni.projet.encheres.bll;
 
 
+import fr.eni.projet.encheres.BusinessException;
 import fr.eni.projet.encheres.bo.Utilisateur;
 import fr.eni.projet.encheres.dal.DAOFactory;
 import fr.eni.projet.encheres.dal.UtilisateurDAO;
@@ -31,4 +32,31 @@ public class UtilisateurManager {
 		Utilisateur utilisateur = new Utilisateur();
 		this.utilisateurDAO.supprimerProfil(utilisateur);
 	}
+
+
+public void ConnexionUtilisateur () {
+	this.utilisateurDAO = DAOFactory.getUtilisateurDAO();}
+
+public static synchronized UtilisateurManager getInstance() throws BusinessException {
+	UtilisateurManager instance = null;
+	if (instance == null) {
+		instance = new UtilisateurManager();
+	}
+	return instance;
+}
+
+public String validateConnection(String emailPseudo, String motDePasse) throws BusinessException {
+	
+	if (emailPseudo == null || motDePasse == null || emailPseudo.isEmpty() || motDePasse.isEmpty()){
+    	throw new BusinessException("L'adresse e-mail ou le pseudo ainsi que le mot de passe ne peuvent pas être vide");
+	}else if (emailPseudo.length() > 30) {
+    	throw new BusinessException("L'adresse e-mail ou le pseudo sont trop long");
+	}else if (motDePasse.length() > 30) {
+    	throw new BusinessException("Le mot de passe est trop long.");
+	}
+String pseudo = utilisateurDAO.getUtilisateur(emailPseudo, motDePasse);
+ 
+	return pseudo;
+}
+
 }

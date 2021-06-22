@@ -126,6 +126,10 @@ public class Utilisateur {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public Utilisateur(String pseudo, String motDePasse) {
+		this.pseudo = pseudo;
+		this.motDePasse = motDePasse;
+	}
 
 	@Override
 	public int hashCode() {

@@ -27,4 +27,9 @@ public class ConnectionProvider {
 		return ConnectionProvider.dataSource.getConnection();
 	}
 
+	public String readData(Object utilisateur) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
