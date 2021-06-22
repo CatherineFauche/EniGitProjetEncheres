@@ -6,14 +6,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-
+import fr.eni.projet.encheres.BusinessException;
+import fr.eni.projet.encheres.bo.Article;
+import fr.eni.projet.encheres.bo.Categorie;
 import fr.eni.projet.encheres.bo.Utilisateur;
+import fr.eni.projet.encheres.dal.CodesResultatDAL;
 import fr.eni.projet.encheres.dal.ConnectionProvider;
 import fr.eni.projet.encheres.dal.UtilisateurDAO;
 
 public class UtilisateurDAOImpl implements UtilisateurDAO {
 	Utilisateur utilisateur;
+	
+	private static final String SELECT_AFFICHAGE_ENCHERE="SELECT no_article, nom_article, date_fin_encheres,"
+			+"prix_initial, etat_vente, pseudo, a.no_categorie FROM articles_vendus a LEFT JOIN utilisateurs u"
+			+ " ON a.no_utilisateur=u.no_utilisateur LEFT JOIN categories c ON a.no_categorie=c.no_categorie";
 
 	@Override
 	public void creerUtilisateur(Utilisateur utilisateur) {
@@ -111,6 +121,68 @@ public void supprimerProfil(Utilisateur utilisateur) {
 	}	
 }
 	
+
+	/*
+	 * Retourne la liste d'enchere
+	 */
+	public List<Article> listeEnchere() throws BusinessException{
+		List<Article> listeEnchere = new ArrayList<Article>();
+		try (Connection cnx = ConnectionProvider.getConnection();Statement stmt = cnx.createStatement()){
+			
+			ResultSet rs = stmt.executeQuery(SELECT_AFFICHAGE_ENCHERE);
+			Integer idArticle;
+			String nomArticle;
+			LocalDate dateFin;
+			int prixInitial;
+			int etatVente;
+			String pseudo;
+			int categorie;
+			
+			while (rs.next()) {
+				idArticle = rs.getInt("no_article");
+				nomArticle = rs.getString("nom_article");
+				dateFin = rs.getDate("date_fin_encheres").toLocalDate();
+				prixInitial = rs.getInt("prix_initial");
+				etatVente = rs.getInt("etat_vente");
+				pseudo = rs.getString("pseudo");
+				categorie = rs.getInt("no_categorie");
+				
+				if (dateFin.isAfter(LocalDate.now())) {
+					Article article = new Article(idArticle,nomArticle,dateFin,prixInitial,etatVente,pseudo,categorie);
+					listeEnchere.add(article);
+				}
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTES_ECHEC);
+			throw businessException;
+		}
+		return listeEnchere;
+	}
 	
+	/*
+	 * Retourne la liste des catégories
+	 */
+	public List<String> listeCategorie() throws BusinessException{
+		List<String> listeCategorie = new ArrayList<String>();
+		try (Connection cnx = ConnectionProvider.getConnection();Statement stmt = cnx.createStatement()){
+			
+			ResultSet rs = stmt.executeQuery("SELECT * FROM categories");
+			String nomCategorie;
+			
+			while (rs.next()) {
+				nomCategorie = rs.getString("libelle");
+				listeCategorie.add(nomCategorie);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTES_ECHEC);
+			throw businessException;
+		}
+		return listeCategorie;
+	}
 	
 }

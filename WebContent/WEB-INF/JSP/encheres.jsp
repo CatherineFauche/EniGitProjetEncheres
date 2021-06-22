@@ -25,7 +25,7 @@
 						<c:choose>
 							<c:when test="${!empty sessionScope.pseudo}">
 								<li class="nav-item">
-							    	<a class="nav-link text-light px-3" href="#">Enchères</a>
+							    	<a class="nav-link text-light px-3" href="encheres">Enchères</a>
 							    </li>
 							    <li class="nav-item">
 							    	<a class="nav-link text-light px-3" href="#">Vendre un article</a>
@@ -39,7 +39,7 @@
 							</c:when>
 							<c:otherwise>
 								<li class="nav-item">
-								 	<a class="nav-link text-light px-3" href="#">S'inscrire - Connection</a>
+								 	<a class="nav-link text-light px-3" href="Connexion">S'inscrire - Connection</a>
 								</li>
 							</c:otherwise>
 						</c:choose>
@@ -47,7 +47,7 @@
 				</div>
 			</nav>
 		</header> 
-	
+		<div class="row py-2"></div>
 		<h2 class="text-center">Liste des enchères</h2>
 		
 		<c:if test="${ !empty sessionScope.pseudo}">
@@ -82,48 +82,68 @@
 						    </div>
 						    <div class="row">
 						    	<div class="col-4">
-							    	<select name="categories" id="categorie-select">
-									    <option value="all">--Toutes catégories--</option>
-									    <option value="informatique">Informatique</option>
-									    <option value="meuble">Ameublement</option>
-									    <option value="vetement">Vêtements</option>
-									    <option value="sportLoisir">Sport&Loisirs</option>
-									</select>
-								</div>
+							    	<select name="categorie" id="categorie" class="col-xs-9 offset-xs-3 col-md-9 offset-md-3">
+									<option value="all">--Toutes catégories--</option>
+                                    <c:forEach items="${listeCategorie}" var="item">
+                                    	<option value="${item}">${item}</option>
+                                    </c:forEach>
+                                </select>
+								</div> 
+								
 						    </div>
 						    <c:if test="${!empty sessionScope.pseudo}">
 								<div class="row">
 									<div class="btn-group">
 							   			<div class="col-4">
-							   				<input type="radio" name="choice" value="Achat" id="achat" required="required">
-											<label for="achat">Achat</label>
-											<div class="row">
-												<input type="checkbox" name="choiceBis" value="eouverte" id="eouverte">
-												<label for="eouverte">Enchères ouvertes</label>
-											</div>
-											<div class="row">
-												<input type="checkbox" name="choiceBis" value="eactuelle" id="eactuelle">
-												<label for="eactuelle">Mes enchères en cours</label>
-											</div>
-											<div class="row">
-												<input type="checkbox" name="choiceBis" value="eremportee" id="eremportee">
-												<label for="eremportee">Mes enchères remportées</label>
+							   				<div class="form-check">
+												<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioAchat" checked>
+												<label class="form-check-label" for="flexRadioAchat">
+													Achat
+												</label>
+												<div class="row">
+													<input class="form-check-input" type="checkbox" value="" id="defaultCheckeouverte" checked>
+													<label class="form-check-label" for="defaultCheckeouverte">
+														Enchères ouvertes
+													</label>
+												</div>
+												<div class="row">
+													<input class="form-check-input" type="checkbox" value="" id="defaultCheckeactuelle">
+													<label class="form-check-label" for="defaultCheckeactuelle">
+														Mes enchères en cours
+													</label>
+												</div>
+												<div class="row">
+													<input class="form-check-input" type="checkbox" value="" id="defaultCheckeremportee">
+													<label class="form-check-label" for="defaultCheckeremportee">
+														Mes enchères remportées
+													</label>
+												</div>
 											</div>
 							   			</div>
 							   			<div class="col-4">
-							   				<input type="radio" name="choice" value="Vente" id="vente">
-											<label for="vente">Mes Vente</label>
-											<div class="row">
-												<input type="checkbox" name="choiceBis" value="vactuelle" id="vactuelle">
-												<label for="vactuelle">Mes ventes en cours</label>
-											</div>
-											<div class="row">
-												<input type="checkbox" name="choiceBis" value="vfuture" id="vfuture">
-												<label for="vfuture">Ventes non débutées</label>
-											</div>
-											<div class="row">
-												<input type="checkbox" name="choiceBis" value="vterminee" id="vterminee">
-												<label for="vterminee">Ventes terminées</label>
+							   				<div class="form-check">
+												<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioVente">
+												<label class="form-check-label" for="flexRadioVente">
+													Mes Ventes
+												</label>
+												<div class="row">
+													<input class="form-check-input" type="checkbox" value="" id="defaultCheckvactuelle">
+													<label class="form-check-label" for="defaultCheckvactuelle">
+														Mes ventes en cours
+													</label>
+												</div>
+												<div class="row">
+													<input class="form-check-input" type="checkbox" value="" id="defaultCheckvfuture">
+													<label class="form-check-label" for="defaultCheckvfuture">
+														Ventes non débutées
+													</label>
+												</div>
+												<div class="row">
+													<input class="form-check-input" type="checkbox" value="" id="defaultCheckvterminee">
+													<label class="form-check-label" for="defaultCheckvterminee">
+														Ventes terminées
+													</label>
+												</div>
 											</div>
 							   			</div>
 						   			</div>
@@ -131,9 +151,9 @@
 							</c:if>						    
 						</div>
 						<div class="col-3">
-							<a href="#" class="badge badge-padding-center" title="Filtrer">
-								<i class="fas fa-search fa-3x text-muted"></i>
-							</a>
+							<div class="row py-4"></div>
+							<input type="submit" class="btn bg-dark text-light"></input>
+							<a href="#" class="badge text-success" title="Filtrer"></a>
 						</div>
 					</div>
 				</form>
@@ -144,10 +164,50 @@
 			<div class="row">
 				<c:choose>
 					<c:when test="${!empty sessionScope.pseudo}">
-						<p class="text-center">Si ce message s'affiche c'est que la session est ouverte.</p>
+						<p class="text-center">Si ce message s'affiche c'est que la session est ouverte. Les enchères arrivent, soyez prêt.e.s !</p>
+						<c:forEach var="current" items="${ListeEnchere}">
+							<div class="container">
+								<div class="row">
+									<div class="col-6">
+										<div class="card flex-row  bg-light">
+											<img src="..."  alt="...">
+										  	<div class="card-body">
+											  	<ul class="list-group">
+											  		<li class="list-group-item"><a href="#" class="card-link"><h5 class="card-title">${current.nomArticle }</h5></a></li>
+											    	<li class="list-group-item">Prix : ${current.prixInitial } crédits</li>
+											    	<li class="list-group-item">Fin de l'enchère : ${current.dateFin }</li>
+											    	<li class="list-group-item">Vendeur : <a href="#" class="card-link">${current.pseudo }</a></li>
+											 	</ul>
+										 	</div>
+										 </div>
+									 </div>
+								 </div>
+							</div>
+							<div class="row py-3"></div>
+						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<p class="text-center">Il n'y a aucunes enchères actuellement.</p>
+						<p class="text-center">Si ce message s'affiche c'est que la session est fermée. Les enchères arrivent, soyez prêt.e.s !</p>
+						<c:forEach var="current" items="${ListeEnchere}" >
+							<div class="container">
+								<div class="row">
+									<div class="col-6">
+										<div class="card flex-row">
+											<img src="..."  alt="...">
+										  	<div class="card-body">
+											  	<ul class="list-group">
+											  		<li class="list-group-item"><h5 class="card-title">${current.nomArticle }</h5></li>
+											    	<li class="list-group-item">Prix : ${current.prixInitial } crédits</li>
+											    	<li class="list-group-item">Fin de l'enchère : ${current.dateFin }</li>
+											    	<li class="list-group-item">Vendeur : ${current.pseudo }</li>
+											 	</ul>
+										 	</div>
+										 </div>
+							 		</div>
+							 	</div>
+							</div>
+							<div class="row py-3"></div>
+						</c:forEach>
 					</c:otherwise>
 				</c:choose>
 			</div>
