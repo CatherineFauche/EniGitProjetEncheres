@@ -6,16 +6,31 @@ import java.util.List;
 public class BusinessException extends Exception {
 	private static final long serialVersionUID = 1L;
 	private List<Integer> listeCodesErreur;
+	private List<String> errors;
 	
 	public BusinessException() {
 		super();
 		this.listeCodesErreur=new ArrayList<>();
 	}
 	
+	public BusinessException(String string) {
+		
+	}
+	public void AddressException(String string) {
+		
+	}
+	
+	public void addError(String error) {
+		if (errors == null) {
+			errors = new ArrayList<>();
+		}
+		errors.add(error);
+	}
+
 	/**
 	 * 
 	 * @param code Code de l'erreur. 
-	 * Doit avoir un message associé dans un fichier properties.
+	 * Doit avoir un message associï¿½ dans un fichier properties.
 	 */
 	public void ajouterErreur(int code)
 	{
@@ -41,4 +56,12 @@ public class BusinessException extends Exception {
 		
 		return sb.toString() ;
 	}
-}
+
+	public List<String> getErrors() {
+		return errors;
+	}
+
+	
+
+	}
+

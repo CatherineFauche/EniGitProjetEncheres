@@ -1,6 +1,7 @@
 package fr.eni.projet.encheres.bll;
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class UtilisateurManager {
 	}
 
 
+
 	public List<Article> recupererListeEnchere() throws BusinessException {
 		List<Article> listeEnchere = new ArrayList<>();
 		listeEnchere = utilisateurDAO.listeEnchere();
@@ -66,4 +68,24 @@ public class UtilisateurManager {
 	}
 	
 	
+
+
+
+
+
+public String validateConnection(String emailPseudo, String motDePasse) throws BusinessException {
+	
+	if (emailPseudo == null || motDePasse == null || emailPseudo.isEmpty() || motDePasse.isEmpty()){
+    	throw new BusinessException("L'adresse e-mail ou le pseudo ainsi que le mot de passe ne peuvent pas être vide");
+	}else if (emailPseudo.length() > 30) {
+    	throw new BusinessException("L'adresse e-mail ou le pseudo sont trop long");
+	}else if (motDePasse.length() > 30) {
+    	throw new BusinessException("Le mot de passe est trop long.");
+	}
+String pseudo = utilisateurDAO.getUtilisateur(emailPseudo, motDePasse);
+ 
+	return pseudo;
+}
+
+
 }
