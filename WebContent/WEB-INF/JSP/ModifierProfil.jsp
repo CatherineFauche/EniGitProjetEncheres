@@ -7,13 +7,13 @@
        <link type="text/css" rel="stylesheet" href="Inscription.css" />
     </head>
     <body>
-        <form method="post" action="inscription">
+        <form method="post" action="ModifierProfil">
             <fieldset>
                 <h1>ENI - Enchères</h1>
                 <h3>Modifier mon profil</h3>
                 
                 <label for="pseudo">Pseudo</label>
-                <input type="text" id="pseudo" name="pseudo" placeholder="${pseudo}" value="" size="20" maxlength="60" />
+                <input type="text" id="pseudo" name="pseudo" placeholder="${pseudo}" value="" size="20" maxlength="60" required="required" />
                 <br />
                 
                 <label for="nom">Nom </label>
@@ -44,17 +44,18 @@
                 <input type="text" id="ville" name="ville" value="${ville}" size="20" maxlength="20" />
                 <br />
 
-                <label for="motdepasse">Mot de passe </label>
-                <input type="password" id="motdepasse" name="motdepasse" value="${motDePasse}" size="20" maxlength="20" />
+                <label for="motdepasse">Mot de passe actuel </label>
+                <input type="password" id="motdepasse" name="motdepasseactuel" value="${motDePasse}" size="20" maxlength="20"  />
                 <br />
 
-                <label for="confirmation">Confirmation du mot de passe <span class="requis">*</span></label>
-                <input type="password" id="confirmation" name="confirmation" value="" size="20" maxlength="20" />
+                <label for="motdepasse">Nouveau mot de passe </label>
+                <input type="password" id="nouveaumotdepasse" name="nouveaumotdepasse" value="" size="20" maxlength="20" />
                 <br />
                 
-                <label for="motdepasse">Nouveau mot de passe </label>
-                <input type="password" id="motdepasse" name="motdepasse" value="" size="20" maxlength="20" />
+                <label for="confirmation">Confirmation du nouveau mot de passe <span class="requis">*</span></label>
+                <input type="password" id="confirmation" name="nouveaumotdepasseconfirmation" value="" size="20" maxlength="20" />
                 <br />
+                
                 
                 <label for="credit">Crédit</label>
                 
@@ -63,7 +64,7 @@
                 
 
                 <input type="submit" value="Enregistrer" class="sansLabel" /> 
-                <button type="button" value ="" onclick="window.location.href = 'http://localhost:8080/EniGitProjetEncheres/MonProfil';">Supprimer mon compte</button>
+                <button type="button" value ="" onclick="window.location.href = 'http://localhost:8080/EniGitProjetEncheres/SupprimerProfil';">Supprimer mon compte</button>
                 
                 
                 

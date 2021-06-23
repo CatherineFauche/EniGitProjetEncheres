@@ -10,13 +10,13 @@ import fr.eni.projet.encheres.bo.Utilisateur;
 
 public interface UtilisateurDAO {
 	
-		void creerUtilisateur(Utilisateur utilisateur);
-		
+		void creerUtilisateur(Utilisateur utilisateur)throws  BusinessException;
+	
 		Utilisateur afficherProfil(int id);
 		
-		Utilisateur modifierProfil(Utilisateur utilisateur);
+		void modifierProfil(String newPseudo, String newNom, String newPrenom, String newEmail, String newTelephone, String newRue, String newCp, String newVille,String nouveauMotDePasse,String pseudo) throws BusinessException;
 		
-		void supprimerProfil(Utilisateur utilisateur);
+		void supprimerProfil(String pseudo);
 		
 		public List<Article> listeEnchere() throws BusinessException;
 		
@@ -26,5 +26,10 @@ public interface UtilisateurDAO {
 
 		public List<Utilisateur> findAll() throws BusinessException;
 		public Utilisateur findByPseudo(String Pseudo, String motDePasse) throws BusinessException;
+		
+		boolean validationPseudo(String pseudo) throws BusinessException;
+		
+		boolean pseudoExiste(String pseudo)throws BusinessException;;
 
+		boolean validationEmail(String email)throws BusinessException;
 }

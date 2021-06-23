@@ -13,7 +13,7 @@
 <title>Page de connexion</title>
 </head>
 <body>
-	<form action="${pageContext.servletContext.contextPath}/connexion" method="post">
+	<form action="connexion" method="post">
 		<h2 class="text-center">ENI-Enchères - Page d'authentification</h2>
 		<c:if test="${not empty errors}">
 			<c:forEach var="msg" items="${errors}">
@@ -48,7 +48,7 @@
 			</tr>
 			<tr>
 				<td style="text-align: center"><a
-					href="${pageContext.servletContext.contextPath}/ReinitialisationMotDePasse">Mot
+					href="ReinitialisationMotDePasse">Mot
 						de passe oublié</a></td>
 			</tr>
 			<tr>
@@ -57,7 +57,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" style="text-align: center"><a
-					href="${pageContext.servletContext.contextPath}/inscription"><input
+					href="inscription"><input
 						type="submit" name="submit" onclick="window.location.href = 'inscription';" style='width: 630px; height: 50px'
 						value="Créer un compte"></a></td>
 		</table>
