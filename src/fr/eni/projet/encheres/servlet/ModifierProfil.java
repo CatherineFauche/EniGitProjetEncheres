@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import fr.eni.projet.encheres.bll.UtilisateurManager;
 import fr.eni.projet.encheres.BusinessException;
 
@@ -39,15 +41,20 @@ public class ModifierProfil extends HttpServlet {
 
 		UtilisateurManager utilisateurmanager = new UtilisateurManager();
 
-		if(pseudo==null) {pseudo= newPseudo;}
+		
 		try {
 			
 			utilisateurmanager.modifierProfil(pseudo,newPseudo,newNom,newPrenom,newEmail,newTelephone,newRue,newCp,newVille,motDePasseActuel,nouveauMotDePasse,nouveauMotDePasseConfirmation);
+			
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("pseudo",pseudo);
 			response.sendRedirect("./encheres");
 			
 		} catch (BusinessException e) {
 			e.printStackTrace();
 			request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
+			request.getRequestDispatcher("/WEB-INF/JSP/ModifierProfil.jsp").forward(request, response);
 		}
 	
 

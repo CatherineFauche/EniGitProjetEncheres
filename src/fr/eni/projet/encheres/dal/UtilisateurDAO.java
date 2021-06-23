@@ -32,4 +32,6 @@ public interface UtilisateurDAO {
 		boolean pseudoExiste(String pseudo)throws BusinessException;;
 
 		boolean validationEmail(String email)throws BusinessException;
+
+		Utilisateur getByPseudo(String pseudo) throws BusinessException;
 }

@@ -293,6 +293,28 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		throw businessException;
 	}	
 	}
+	@Override
+	public Utilisateur getByPseudo(String pseudo) throws BusinessException {
+
+		try (Connection cnx = ConnectionProvider.getConnection();PreparedStatement pstmt = cnx.prepareStatement("Select pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe from utilisateurs where pseudo=?");) {
+			pstmt.setString(1, pseudo);
+			
+
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+					utilisateur = new Utilisateur(rs.getString("pseudo"),rs.getString("nom"),rs.getString("prenom"),rs.getString("email"),rs.getString("telephone"),rs.getString("rue"),rs.getString("code_postal"),rs.getString("ville"),rs.getString("mot_de_passe"));
+
+					}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.GET_UTILISATEUR_ECHEC);
+			throw businessException;
+		}
+		
+		return utilisateur;
+	}
 
 
 }

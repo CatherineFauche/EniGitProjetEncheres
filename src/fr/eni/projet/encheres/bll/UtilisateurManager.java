@@ -42,6 +42,7 @@ public class UtilisateurManager {
 		this.validationNom(nom, exception);
 		this.validationPrenom(prenom, exception);
 		this.validationTelephone(telephone, exception);
+		
 
 		if (!exception.hasErreurs()) {
 			Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville,
@@ -60,9 +61,40 @@ public class UtilisateurManager {
 	public void modifierProfil(String pseudo, String newPseudo, String newNom, String newPrenom, String newEmail,
 			String newTelephone, String newRue, String newCp, String newVille, String motDePasseActuel,
 			String nouveauMotDePasse, String nouveauMotDePasseConfirmation) throws BusinessException {
-
+		
+		Utilisateur u = this.utilisateurDAO.getByPseudo(pseudo);
+		BusinessException exception = new BusinessException();
+		
+		if(!newPseudo.equals("")) {
+		this.validationPseudo(newPseudo,exception);
+		newPseudo = u.getPseudo();
+		}
+		if(!newEmail.equals("")) {
+		this.validationEmail(newEmail, exception);
+		}
+		if(newNom.length()<1) {
+			newNom = u.getNom();
+		}if(newPrenom.length()<1) {
+			newPrenom = u.getPrenom();
+		}if(newEmail.length()<1) {
+			newEmail = u.getEmail();
+		}if(newTelephone.length()<1) {
+			newTelephone = u.getTelephone();
+		}if(newRue.length()<1) {
+			newRue = u.getRue();
+		}if(newCp.length()<1) {
+			newCp = u.getCp();
+		}if(newVille.length()<1) {
+			newVille = u.getVille();
+		}if(nouveauMotDePasse.length()<1) {
+			nouveauMotDePasse = u.getMotDePasse();
+		}
+		if (!exception.hasErreurs()) {
 		this.utilisateurDAO.modifierProfil(newPseudo, newNom, newPrenom, newEmail, newTelephone, newRue, newCp,
 				newVille, nouveauMotDePasse, pseudo);
+		} else {
+			throw exception;
+		}
 	}
 
 	private void validationPseudo(String pseudo, BusinessException businessException) throws BusinessException {
@@ -152,12 +184,12 @@ public class UtilisateurManager {
 	}
 
 	private void validationTelephone(String telephone, BusinessException businessException) {
-		if (telephone == null) {
-			businessException.ajouterErreur(CodesResultatBLL.TELEPHONE_NULL_ERREUR);
-		}
-		if ((!telephone.matches("^\\d+$"))) {
+		if (telephone !="") {
+			if ((!telephone.matches("^\\d+$"))) {
 			businessException.ajouterErreur(CodesResultatBLL.TELEPHONE_NON_VALIDE);
 		}
 	}
+	}
+	
 
 }
