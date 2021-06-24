@@ -28,8 +28,10 @@ public class ServletEncheres extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		HttpSession session = request.getSession(); //il y a une session utilisateur
 	
+
 		List<Article> listeEnchere = new ArrayList<Article>();
 		List<String> listeCategorie = new ArrayList<String>();
 		

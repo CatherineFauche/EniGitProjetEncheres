@@ -31,7 +31,9 @@
 							    	<a class="nav-link text-light px-3" href="#">Vendre un article</a>
 							    </li>
 							    <li class="nav-item">
-							    	<a class="nav-link text-light px-3" href="MonProfil"">Mon profil</a>
+
+							    	<a class="nav-link text-light px-3" href="MonProfil">Mon profil</a>
+
 							    </li>
 							    <li class="nav-item">
 							    	<a class="nav-link text-light px-3" href="Deconnexion">Déconnection</a>
@@ -39,7 +41,7 @@
 							</c:when>
 							<c:otherwise>
 								<li class="nav-item">
-								 	<a class="nav-link text-light px-3" href="Connexion">S'inscrire - Connection</a>
+								 	<a class="nav-link text-light px-3" href="connexion">S'inscrire - Connection</a>
 								</li>
 							</c:otherwise>
 						</c:choose>
