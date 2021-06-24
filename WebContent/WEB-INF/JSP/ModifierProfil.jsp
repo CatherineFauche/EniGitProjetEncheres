@@ -7,7 +7,7 @@
        <link type="text/css" rel="stylesheet" href="Inscription.css" />
     </head>
     <body>
-        <form method="post" action="inscription">
+        <form method="post" action="ModifierProfil">
             <fieldset>
                 <h1>ENI - Enchères</h1>
                 <h3>Modifier mon profil</h3>

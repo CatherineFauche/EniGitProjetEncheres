@@ -1,5 +1,6 @@
 package fr.eni.projet.encheres;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +62,7 @@ public class BusinessException extends Exception {
 		return errors;
 	}
 
-	
+
 
 	}
 

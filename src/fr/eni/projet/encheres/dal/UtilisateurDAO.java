@@ -27,4 +27,8 @@ public interface UtilisateurDAO {
 		public List<Utilisateur> findAll() throws BusinessException;
 		public Utilisateur findByPseudo(String Pseudo, String motDePasse) throws BusinessException;
 
+		
+		Utilisateur selectAffichageProfil(String pseudo) throws BusinessException;
+		
+
 }

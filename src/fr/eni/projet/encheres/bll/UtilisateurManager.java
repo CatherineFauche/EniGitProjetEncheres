@@ -5,6 +5,10 @@ package fr.eni.projet.encheres.bll;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import fr.eni.projet.encheres.BusinessException;
 import fr.eni.projet.encheres.bo.Article;
 import fr.eni.projet.encheres.bo.Utilisateur;
@@ -16,6 +20,7 @@ public class UtilisateurManager {
 	
 	private static UtilisateurManager instance;
 	private UtilisateurDAO utilisateurDAO;
+	private static final String REMEMBER_LOGIN = "ATTRIBUTE_FOR_STORE_USER_NAME_IN_COOKIE";
 	
 	
 	
@@ -82,10 +87,31 @@ public String validateConnection(String emailPseudo, String motDePasse) throws B
 	}else if (motDePasse.length() > 30) {
     	throw new BusinessException("Le mot de passe est trop long.");
 	}
+	
+	
 String pseudo = utilisateurDAO.getUtilisateur(emailPseudo, motDePasse);
  
 	return pseudo;
 }
 
+public Utilisateur afficherProfil (String pseudo) throws BusinessException {
+	
+
+	return utilisateurDAO.selectAffichageProfil(pseudo);
+}
+
+
+public static void storeUserCookie(HttpServletResponse response, Utilisateur user) {
+	
+	
+}
+
+
+public static void deleteUserCookie(HttpServletResponse response) {
+	
+	
+}
 
 }
+
+

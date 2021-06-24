@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import fr.eni.projet.encheres.BusinessException;
 import fr.eni.projet.encheres.bo.Article;
 import fr.eni.projet.encheres.bo.Utilisateur;
@@ -22,6 +23,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String SELECT_AFFICHAGE_ENCHERE = "SELECT no_article, nom_article, date_fin_encheres,"
 			+ "prix_initial, etat_vente, pseudo, a.no_categorie FROM articles_vendus a LEFT JOIN utilisateurs u"
 			+ " ON a.no_utilisateur=u.no_utilisateur LEFT JOIN categories c ON a.no_categorie=c.no_categorie";
+
+	
 
 	@Override
 	public void creerUtilisateur(Utilisateur utilisateur) {
@@ -199,7 +202,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	}
 
 	/*
-	 * Retourne la liste des catégories
+	 * Retourne la liste des catï¿½gories
 	 */
 	@Override
 	public List<String> listeCategorie() throws BusinessException {
@@ -221,5 +224,52 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		}
 		return listeCategorie;
 	}
+
+	@Override
+	public Utilisateur selectAffichageProfil(String pseudo) throws BusinessException {
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+			PreparedStatement pstmt = cnx
+					.prepareStatement("select pseudo, nom, prenom, email, telephone, rue, code_postal, ville "
+							+ " from utilisateurs where pseudo = ?");
+
+			{
+				pstmt.setString(1, pseudo);
+				ResultSet rs = pstmt.executeQuery();
+				{
+					if (rs.next()) {
+					
+						Utilisateur utilisateur = mapping(rs);
+						return utilisateur;
+
+					} else {
+						BusinessException be = new BusinessException();
+						be.addError("Profil Inconnu");
+						throw be;
+					}
+
+				}
+			}
+		} catch (SQLException e) {
+			BusinessException be = new BusinessException();
+			be.addError("Error -- no Profil");
+			throw be;
+		}
+
+	}
+
+	private Utilisateur mapping(ResultSet rs) throws SQLException {
+		String pseudo = rs.getString("pseudo");
+		String nom = rs.getString("nom");
+		String prenom = rs.getString("prenom");
+		String email = rs.getString("email");
+		String telephone = rs.getString("telephone");
+		String rue = rs.getString("rue");
+		String code_postal = rs.getString("code_postal");
+		String ville = rs.getString("ville");
+
+		return new Utilisateur(pseudo, nom, prenom, email, telephone, rue, code_postal, ville);
+
+	}
+
 
 }

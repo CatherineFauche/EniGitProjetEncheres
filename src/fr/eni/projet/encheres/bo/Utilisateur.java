@@ -130,6 +130,7 @@ public class Utilisateur {
 		this.pseudo = pseudo;
 		this.motDePasse = motDePasse;
 	}
+	
 
 	@Override
 	public int hashCode() {
@@ -214,5 +215,6 @@ public class Utilisateur {
 				+ email + ", telephone=" + telephone + ", rue=" + rue + ", cp=" + cp + ", ville=" + ville
 				+ ", motDePasse=" + motDePasse +  "]";
 	} 
+
 
 }
