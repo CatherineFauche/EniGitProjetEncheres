@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +32,15 @@ public class Connexion extends HttpServlet {
 		 */
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
-			
+			Cookie[] cookies = request.getCookies();
+			if(cookies != null) {
+				for(Cookie cookie : cookies) {
+					if (cookie.getName().equals("emailPseudo")) {
+						request.setAttribute("emailPseudo", cookie.getValue());
+				}
+			}
+			}
+					
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/connexion.jsp");
 			 
 	        dispatcher.forward(request, response);
@@ -50,12 +59,14 @@ public class Connexion extends HttpServlet {
 	        request.setCharacterEncoding("utf-8");
 			String emailPseudo = request.getParameter("emailPseudo");
 			String MotDePasse = request.getParameter("MotDePasse");
-	
-				//HTTPSession  session = request.getSession();
-				//session.setAttribute("id", utilisateur); 
+			
+			Cookie cookie = new Cookie("emailPseudo", emailPseudo);
+			cookie.setMaxAge(60 * 60 *24 * 30);
+			response.addCookie(cookie);
+			
 				System.out.println("emailPseudo = " + emailPseudo + " MotDePasse = " + MotDePasse);
 				
-				//Appel la BLL
+				
 				try {
 					String pseudo = UtilisateurManager.getInstance().validateConnection(emailPseudo, MotDePasse);
 					HttpSession  session = request.getSession();

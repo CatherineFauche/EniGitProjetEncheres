@@ -18,4 +18,13 @@ public abstract class CodesResultatDAL {
 	public static final int LECTURE_FILTRE_ECHEC = 10053;
 	
 	
+	
+	public static final int SELECT_UTILISATEUR_ECHEC=10002;
+	
+	public static final int MAJ_UTILISATEUR_ECHEC=10003;
+	
+	public static final int INSERT_UTILISATEUR_ECHEC=10004;
+	
+	
+	public static final int GET_UTILISATEUR_ECHEC=10005;
 }

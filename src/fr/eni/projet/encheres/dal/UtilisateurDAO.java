@@ -10,13 +10,13 @@ import fr.eni.projet.encheres.bo.Utilisateur;
 
 public interface UtilisateurDAO {
 	
-		void creerUtilisateur(Utilisateur utilisateur);
-		
+		void creerUtilisateur(Utilisateur utilisateur)throws  BusinessException;
+	
 		Utilisateur afficherProfil(int id);
 		
-		Utilisateur modifierProfil(Utilisateur utilisateur);
+		void modifierProfil(String newPseudo, String newNom, String newPrenom, String newEmail, String newTelephone, String newRue, String newCp, String newVille,String nouveauMotDePasse,String pseudo) throws BusinessException;
 		
-		void supprimerProfil(Utilisateur utilisateur);
+		void supprimerProfil(String pseudo);
 		
 		public List<Article> listeEnchere() throws BusinessException;
 		
@@ -27,6 +27,32 @@ public interface UtilisateurDAO {
 		public List<Utilisateur> findAll() throws BusinessException;
 		
 		public Utilisateur findByPseudo(String Pseudo, String motDePasse) throws BusinessException;
+		
+		boolean validationPseudo(String pseudo) throws BusinessException;
+		
+		boolean pseudoExiste(String pseudo)throws BusinessException;;
+
+		boolean validationEmail(String email)throws BusinessException;
+
+		Utilisateur getByPseudo(String pseudo) throws BusinessException;
+
+
+		
+		Utilisateur selectAffichageProfil(String pseudo) throws BusinessException;
+		
+
+
+		void modifierProfilUn(String newNom, String newPrenom, String newEmail, String newTelephone, String newRue,
+				String newCp, String newVille, String nouveauMotDePasse, String pseudo) throws BusinessException;
+
+		void modifierProfilDeux(String pseudo, String newNom, String newPrenom, String newTelephone, String newRue,
+				String newCp, String newVille, String nouveauMotDePasse, String pseudo2) throws BusinessException;
+
+		void modifierProfilTrois(String newNom, String newPrenom, String newTelephone, String newRue, String newCp,
+				String newVille, String nouveauMotDePasse, String pseudo) throws BusinessException;
+
+		
+		
 
 		List<Article> filtreEnchere(String inputFiltre, int categorieFiltre, String pseudoSession,
 				Integer venteActuelle, Integer venteFuture, Integer venteTerminee) throws BusinessException;

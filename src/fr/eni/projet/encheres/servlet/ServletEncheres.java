@@ -29,7 +29,6 @@ public class ServletEncheres extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		List<Article> listeEnchere = new ArrayList<Article>();
 		List<Categorie> listeCategorie = new ArrayList<Categorie>();
 		
@@ -41,7 +40,6 @@ public class ServletEncheres extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
 		
 		try {
 			listeCategorie = UtilisateurManager.getInstance().recupererListeCategorie();

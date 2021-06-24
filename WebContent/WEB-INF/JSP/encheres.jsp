@@ -68,7 +68,9 @@
 							    	<a class="nav-link text-light px-3" href="#">Vendre un article</a>
 							    </li>
 							    <li class="nav-item">
+
 							    	<a class="nav-link text-light px-3" href="MonProfil">Mon profil</a>
+
 							    </li>
 							    <li class="nav-item">
 							    	<a class="nav-link text-light px-3" href="Deconnexion">Déconnection</a>
