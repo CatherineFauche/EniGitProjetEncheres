@@ -32,4 +32,10 @@ public abstract class CodesResultatBLL {
 	
 	public static final int PROFIL_NON_EXISTANT=20013;
 	
+	public static final int DEJA_VOTRE_PSEUDO=20014;
+	
+	public static final int DEJA_VOTRE_EMAIL=20015;
+	
+	public static final int MDP_FAUX=20016;
+	
 }

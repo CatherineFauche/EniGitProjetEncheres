@@ -293,6 +293,86 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		throw businessException;
 	}	
 	}
+	
+	@Override
+	public void modifierProfilUn(String newNom, String newPrenom, String newEmail,
+			String newTelephone, String newRue, String newCp, String newVille,
+			String nouveauMotDePasse,String pseudo) throws BusinessException {
+			
+			try (Connection cnx = ConnectionProvider.getConnection();PreparedStatement pstmt = cnx.prepareStatement("UPDATE utilisateurs set nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=? where pseudo=?");) {
+			
+			
+			pstmt.setString(1, newNom);
+			pstmt.setString(2, newPrenom);
+			pstmt.setString(3, newEmail);
+			pstmt.setString(4, newTelephone);
+			pstmt.setString(5, newRue);
+			pstmt.setString(6, newCp);
+			pstmt.setString(7, newVille);
+			pstmt.setString(8, nouveauMotDePasse);
+			pstmt.setString(9, pseudo);
+			
+			pstmt.executeUpdate();
+									
+	} catch (SQLException e) {
+		e.printStackTrace();
+		BusinessException businessException = new BusinessException();
+		businessException.ajouterErreur(CodesResultatDAL.MAJ_UTILISATEUR_ECHEC);
+		throw businessException;
+	}	
+	}
+	
+	@Override
+	public void modifierProfilDeux(String newPseudo, String newNom, String newPrenom,
+			String newTelephone, String newRue, String newCp, String newVille,
+			String nouveauMotDePasse,String pseudo) throws BusinessException {
+			
+			try (Connection cnx = ConnectionProvider.getConnection();PreparedStatement pstmt = cnx.prepareStatement("UPDATE utilisateurs set pseudo=?,nom=?,prenom=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=? where pseudo=?");) {
+			
+			pstmt.setString(1, newPseudo);
+			pstmt.setString(2, newNom);
+			pstmt.setString(3, newPrenom);
+			pstmt.setString(4, newTelephone);
+			pstmt.setString(5, newRue);
+			pstmt.setString(6, newCp);
+			pstmt.setString(7, newVille);
+			pstmt.setString(8, nouveauMotDePasse);
+			pstmt.setString(9, pseudo);
+			
+			pstmt.executeUpdate();
+									
+	} catch (SQLException e) {
+		e.printStackTrace();
+		BusinessException businessException = new BusinessException();
+		businessException.ajouterErreur(CodesResultatDAL.MAJ_UTILISATEUR_ECHEC);
+		throw businessException;
+	}	
+	}
+	@Override
+	public void modifierProfilTrois(String newNom, String newPrenom,
+			String newTelephone, String newRue, String newCp, String newVille,
+			String nouveauMotDePasse,String pseudo) throws BusinessException {
+			
+			try (Connection cnx = ConnectionProvider.getConnection();PreparedStatement pstmt = cnx.prepareStatement("UPDATE utilisateurs set nom=?,prenom=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=? where pseudo=?");) {
+			
+			pstmt.setString(1, newNom);
+			pstmt.setString(2, newPrenom);
+			pstmt.setString(3, newTelephone);
+			pstmt.setString(4, newRue);
+			pstmt.setString(5, newCp);
+			pstmt.setString(6, newVille);
+			pstmt.setString(7, nouveauMotDePasse);
+			pstmt.setString(8, pseudo);
+			
+			pstmt.executeUpdate();
+									
+	} catch (SQLException e) {
+		e.printStackTrace();
+		BusinessException businessException = new BusinessException();
+		businessException.ajouterErreur(CodesResultatDAL.MAJ_UTILISATEUR_ECHEC);
+		throw businessException;
+	}	
+	}
 	@Override
 	public Utilisateur getByPseudo(String pseudo) throws BusinessException {
 

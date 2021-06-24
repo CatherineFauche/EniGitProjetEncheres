@@ -34,4 +34,16 @@ public interface UtilisateurDAO {
 		boolean validationEmail(String email)throws BusinessException;
 
 		Utilisateur getByPseudo(String pseudo) throws BusinessException;
+
+		void modifierProfilUn(String newNom, String newPrenom, String newEmail, String newTelephone, String newRue,
+				String newCp, String newVille, String nouveauMotDePasse, String pseudo) throws BusinessException;
+
+		void modifierProfilDeux(String pseudo, String newNom, String newPrenom, String newTelephone, String newRue,
+				String newCp, String newVille, String nouveauMotDePasse, String pseudo2) throws BusinessException;
+
+		void modifierProfilTrois(String newNom, String newPrenom, String newTelephone, String newRue, String newCp,
+				String newVille, String nouveauMotDePasse, String pseudo) throws BusinessException;
+
+		
+		
 }
