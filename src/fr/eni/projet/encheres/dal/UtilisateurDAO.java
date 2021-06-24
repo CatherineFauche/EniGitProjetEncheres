@@ -5,7 +5,7 @@ import java.util.List;
 import fr.eni.projet.encheres.BusinessException;
 
 import fr.eni.projet.encheres.bo.Article;
-
+import fr.eni.projet.encheres.bo.Categorie;
 import fr.eni.projet.encheres.bo.Utilisateur;
 
 public interface UtilisateurDAO {
@@ -20,11 +20,16 @@ public interface UtilisateurDAO {
 		
 		public List<Article> listeEnchere() throws BusinessException;
 		
-		public List<String> listeCategorie() throws BusinessException;
+		public List<Categorie> listeCategorie() throws BusinessException;
 
 		public String getUtilisateur(String emailPseudo, String motDePasse) throws BusinessException;
 
 		public List<Utilisateur> findAll() throws BusinessException;
+		
 		public Utilisateur findByPseudo(String Pseudo, String motDePasse) throws BusinessException;
 
+		List<Article> filtreEnchere(String inputFiltre, int categorieFiltre, String pseudoSession,
+				Integer venteActuelle, Integer venteFuture, Integer venteTerminee) throws BusinessException;
+		
+		List<Article> filtreEnchereDeconnecter(String inputFiltre, int categorieFiltre) throws BusinessException;
 }

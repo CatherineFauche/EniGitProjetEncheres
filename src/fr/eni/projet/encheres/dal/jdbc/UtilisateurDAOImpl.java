@@ -11,6 +11,7 @@ import java.util.List;
 
 import fr.eni.projet.encheres.BusinessException;
 import fr.eni.projet.encheres.bo.Article;
+import fr.eni.projet.encheres.bo.Categorie;
 import fr.eni.projet.encheres.bo.Utilisateur;
 import fr.eni.projet.encheres.dal.CodesResultatDAL;
 import fr.eni.projet.encheres.dal.ConnectionProvider;
@@ -22,6 +23,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String SELECT_AFFICHAGE_ENCHERE = "SELECT no_article, nom_article, date_fin_encheres,"
 			+ "prix_initial, etat_vente, pseudo, a.no_categorie FROM articles_vendus a LEFT JOIN utilisateurs u"
 			+ " ON a.no_utilisateur=u.no_utilisateur LEFT JOIN categories c ON a.no_categorie=c.no_categorie";
+	private static final String SELECT_FILTRE_ENCHERE = "SELECT no_article, nom_article, date_fin_encheres,"
+			+ "prix_initial, etat_vente, pseudo, a.no_categorie FROM articles_vendus a LEFT JOIN utilisateurs u"
+			+ " ON a.no_utilisateur=u.no_utilisateur LEFT JOIN categories c ON a.no_categorie=c.no_categorie"
+			+ "WHERE ?";
 
 	@Override
 	public void creerUtilisateur(Utilisateur utilisateur) {
@@ -202,16 +207,20 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	 * Retourne la liste des catégories
 	 */
 	@Override
-	public List<String> listeCategorie() throws BusinessException {
-		List<String> listeCategorie = new ArrayList<String>();
+	public List<Categorie> listeCategorie() throws BusinessException {
+		List<Categorie> listeCategorie = new ArrayList<Categorie>();
 		try (Connection cnx = ConnectionProvider.getConnection(); Statement stmt = cnx.createStatement()) {
 
 			ResultSet rs = stmt.executeQuery("SELECT * FROM categories");
+			Categorie categorie;
+			int idCategorie;
 			String nomCategorie;
 
 			while (rs.next()) {
 				nomCategorie = rs.getString("libelle");
-				listeCategorie.add(nomCategorie);
+				idCategorie = rs.getInt("no_categorie");
+				categorie = new Categorie(idCategorie, nomCategorie);
+				listeCategorie.add(categorie);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -221,5 +230,69 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		}
 		return listeCategorie;
 	}
-
+	
+	
+	/*
+	 * Retourne la liste d'article filtrer
+	 */
+	@Override
+	public List<Article> filtreEnchere(String inputFiltre, int categorieFiltre, String pseudoSession, Integer venteActuelle,Integer venteFuture,Integer venteTerminee) throws BusinessException{
+		
+		List<Article> listeArticleFiltree = new ArrayList<Article>();
+		StringBuilder sb = new StringBuilder();
+		
+		if (inputFiltre!=null) {
+			sb.append("nom_article=?"+" AND ");
+		}else if (pseudoSession!=null) {
+			if (venteActuelle!=0) {
+				sb.append("etat_vente=?"+" AND ");
+			}else if (venteFuture!=0) {
+				sb.append("etat_vente=?"+" AND ");
+			}else if (venteTerminee!=0) {
+				sb.append("etat_vente=?"+" AND ");
+			}
+		}else if (categorieFiltre>0) {
+			sb.append("no_categorie=?");
+		}
+		
+		int indice = 1;
+		
+		try (Connection cnx = ConnectionProvider.getConnection(); PreparedStatement pstmt = cnx.prepareStatement(SELECT_FILTRE_ENCHERE);) {
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Integer idArticle = rs.getInt("no_article");
+				if (inputFiltre!=null) {
+					pstmt.setString(indice++, inputFiltre);
+				}
+				LocalDate dateFin = rs.getDate("date_fin_encheres").toLocalDate();
+				int prixInitial = rs.getInt("prix_initial");
+				if (pseudoSession!=null) {
+					if (venteActuelle!=0) {
+						pstmt.setInt(indice++, venteActuelle);
+						String pseudo = rs.getString("pseudo");
+						if (categorieFiltre>0) {
+							pstmt.setInt(indice++, categorieFiltre);
+						}
+						Article article = new Article(idArticle, inputFiltre, dateFin, prixInitial, venteActuelle, pseudo,
+								categorieFiltre);
+						listeArticleFiltree.add(article);
+					}
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.LECTURE_FILTRE_ECHEC);
+			throw businessException;
+		}
+		return listeArticleFiltree;
+	}
+	
+	@Override
+	public List<Article> filtreEnchereDeconnecter(String inputFiltre, int categorieFiltre) throws BusinessException{
+		List<Article> listeArticleFiltree = new ArrayList<Article>();
+		StringBuilder sb = new StringBuilder();
+		return listeArticleFiltree;
+	}
 }
