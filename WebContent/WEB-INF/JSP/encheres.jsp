@@ -205,7 +205,7 @@
 			
 				<c:choose>
 					<c:when test="${!empty sessionScope.pseudo}">
-						<p class="text-center">Si ce message s'affiche c'est que la session est ouverte. Les enchères arrivent, soyez prêt.e.s !</p>
+						<p class="text-center">Les enchères arrivent, soyez prêt.e.s !</p>
 						<div class="row">
 							<c:forEach var="current" items="${ListeEnchere}">
 								<div class="col-12 col-lg-6 mb-2 mt-2">
@@ -215,7 +215,7 @@
 									  		<a href="#" class="card-link"><h5 class="card-title">${current.nomArticle }</h5></a><br>
 									    	Prix : ${current.prixInitial } crédits<br>
 									    	Fin de l'enchère : ${current.dateFin }<br>
-									    	Vendeur : <a href="#" class="card-link">${current.pseudo }</a><br>
+									    	Vendeur : <a href="MonProfil?pseudo=${current.pseudo }" class="card-link">${current.pseudo }</a><br>
 									 	</div>
 									 </div>
 								 </div>
@@ -223,7 +223,7 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<p class="text-center">Si ce message s'affiche c'est que la session est fermée. Les enchères arrivent, soyez prêt.e.s !</p>
+						<p class="text-center">Les enchères arrivent, soyez prêt.e.s !</p>
 						<div class="row">
 							<c:forEach var="current" items="${ListeEnchere}">
 								<div class="col-12 col-lg-6 mb-2 mt-2">

@@ -56,13 +56,12 @@ public class ServletDeconnexion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String inputFiltre = "%"+request.getParameter("inputFiltre")+"%"; // "%" pour sql pour dire il peut avoir un truc avant et après
 		int categorieFiltre = Integer.parseInt(request.getParameter("categorieFiltre"));
 		
 		List<Article> listeEnchereDesFiltresDeconnecter = new ArrayList<>();
 		
 		try {
-			listeEnchereDesFiltresDeconnecter = UtilisateurManager.getInstance().recupererListeEnchereDesFiltresDeconnecter(inputFiltre, categorieFiltre);
+			listeEnchereDesFiltresDeconnecter = UtilisateurManager.getInstance().filtreEnchereParCategorie(categorieFiltre);
 			request.setAttribute("ListeEnchere", listeEnchereDesFiltresDeconnecter);
 		} catch (BusinessException e) {
 			e.printStackTrace();

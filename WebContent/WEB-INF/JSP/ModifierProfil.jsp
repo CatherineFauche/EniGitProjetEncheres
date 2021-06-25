@@ -6,6 +6,7 @@
 <html>
   <head>
     <title>ENI Enchères</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <style>
@@ -215,6 +216,17 @@
     </style>
   </head>
   <body>
+  	<header>
+			<nav class="navbar navbar-expand-md navbar-light bg-dark">
+				<a class="navbar-brand text-white" href="encheres">
+			    	<h3>ENI-Encheres</h3>
+			    </a>
+			    <button type="button" class="navbar-toggler bg-light" data-toggle="collapse" data-target="#nav">
+			    	<span class="navbar-toggler-icon"></span>
+			    </button>
+			</nav>
+		</header>
+		<div class="row py-2"></div>
     <c:if test="${!empty listeCodesErreur}">
 			<div class="alert alert-danger" role="alert">
 			  <strong>Erreur!</strong>
@@ -232,7 +244,7 @@
       </div>
       <br/>
       <fieldset>
-        <legend>Mon profil</legend>
+        <legend><a href="./MonProfil">Mon profil</a></legend>
         <div class="colums">
           <div class="item">
             <label for="pseudo">Pseudo</label>
@@ -296,5 +308,11 @@
       </div>
     </form>
     </div>
+    <div class="row py-2"></div>
+		<footer class="py-3 bg-dark">
+	      	<div class="container">
+	       		<p class="m-0 text-center text-white">Copyright &copy; ENI - Groupe C 2021</p>
+	    	</div>
+	    </footer>
   </body>
 </html>

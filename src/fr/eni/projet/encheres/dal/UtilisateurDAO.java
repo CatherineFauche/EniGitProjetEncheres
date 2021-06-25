@@ -52,10 +52,5 @@ public interface UtilisateurDAO {
 				String newVille, String nouveauMotDePasse, String pseudo) throws BusinessException;
 
 		
-		
-
-		List<Article> filtreEnchere(String inputFiltre, int categorieFiltre, String pseudoSession,
-				Integer venteActuelle, Integer venteFuture, Integer venteTerminee) throws BusinessException;
-		
-		List<Article> filtreEnchereDeconnecter(String inputFiltre, int categorieFiltre) throws BusinessException;
+		public List<Article> filtreEnchereParCategorie(int categorieFiltre) throws BusinessException;
 }

@@ -63,10 +63,7 @@ public class Connexion extends HttpServlet {
 			Cookie cookie = new Cookie("emailPseudo", emailPseudo);
 			cookie.setMaxAge(60 * 60 *24 * 30);
 			response.addCookie(cookie);
-			
-				System.out.println("emailPseudo = " + emailPseudo + " MotDePasse = " + MotDePasse);
-				
-				
+
 				try {
 					String pseudo = UtilisateurManager.getInstance().validateConnection(emailPseudo, MotDePasse);
 					HttpSession  session = request.getSession();

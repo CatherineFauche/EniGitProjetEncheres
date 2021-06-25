@@ -3,10 +3,6 @@ package fr.eni.projet.encheres.bll;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import fr.eni.projet.encheres.BusinessException;
 import fr.eni.projet.encheres.bo.Article;
 import fr.eni.projet.encheres.bo.Categorie;
@@ -176,16 +172,10 @@ public class UtilisateurManager {
 		return listeCategorie;
 	}
 
-	public List<Article> recupererListeEnchereDesFiltresVentes(String inputFiltre,int categorieFiltre,String pseudoSession, Integer venteActuelle,Integer venteFuture,Integer venteTerminee) throws BusinessException{
-		List<Article> listeEnchereDesFiltresVentes = new ArrayList<>();
-		listeEnchereDesFiltresVentes = utilisateurDAO.filtreEnchere(inputFiltre, categorieFiltre, pseudoSession, venteActuelle, venteFuture, venteTerminee);
-		return listeEnchereDesFiltresVentes;
-	}
-
-	public List<Article> recupererListeEnchereDesFiltresDeconnecter(String inputFiltre, int categorieFiltre) throws BusinessException {
-		List<Article> listeEnchereDesFiltresDeconnecter = new ArrayList<>();
-		listeEnchereDesFiltresDeconnecter = utilisateurDAO.filtreEnchereDeconnecter(inputFiltre,categorieFiltre);
-		return listeEnchereDesFiltresDeconnecter;
+	public List<Article> filtreEnchereParCategorie(int categorieFiltre) throws BusinessException {
+		List<Article> listeEnchereFiltreParCategorie = new ArrayList<>();
+		listeEnchereFiltreParCategorie = utilisateurDAO.filtreEnchereParCategorie(categorieFiltre);
+		return listeEnchereFiltreParCategorie;
 	}
 	
 	public String validateConnection(String emailPseudo, String motDePasse) throws BusinessException {
